@@ -1,1 +1,1 @@
-worker: python Compliment_bot/compliments_bot.py
+worker: python compliments_bot.py
