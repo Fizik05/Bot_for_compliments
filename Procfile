@@ -1,1 +1,1 @@
-web: python Compliment_bot/compliments_bot.py
+worker: python Compliment_bot/compliments_bot.py
