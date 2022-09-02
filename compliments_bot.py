@@ -13,7 +13,7 @@ from deep_translator import GoogleTranslator
 
 load_dotenv()
 
-token = os.getenv("Token")
+token = os.getenv("TOKEN")
 updater = Updater(token=token)
 URL = "https://complimentr.com/api"
 
