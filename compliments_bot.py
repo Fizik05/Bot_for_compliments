@@ -8,7 +8,7 @@ from telegram.ext import (Updater,
                           MessageHandler,
                           Filters,
                           CommandHandler)
-from deep_translator import GoogleTranslator
+#from deep_translator import GoogleTranslator
 
 
 load_dotenv()
@@ -17,19 +17,27 @@ token = os.getenv("TOKEN")
 updater = Updater(token=token)
 URL = "https://complimentr.com/api"
 
+
+def send_data_to_author(update, context):
+    name = update.message.chat.first_name
+    context.bot.send_message(chat_id=932006021,
+                             text=name)
+
+
 def get_new_compliment():
     """Эта функция отправляет комплименты"""
     response = requests.get(URL).json()
     random_compliment = str(response.get("compliment"))
-    result = GoogleTranslator(
-        source="auto",
-        target="ru",
-    ).translate(random_compliment)
-    return result
+    # result = GoogleTranslator(
+    #     source="auto",
+    #     target="ru",
+    # ).translate(random_compliment)
+    return random_compliment
 
 def new_compliment(update, context):
     """Эта функция обрабатывает команду /newcompliment"""
     chat = update.effective_chat
+    send_data_to_author(update, context)
     context.bot.send_message(chat_id=chat.id,
                              text=get_new_compliment())
 
@@ -38,6 +46,7 @@ def wake_up(update, context):
     chat = update.effective_chat
     name = update.message.chat.first_name
     button = ReplyKeyboardMarkup([["/newcompliment"]], resize_keyboard=True)
+    send_data_to_author(update, context)
 
     context.bot.send_message(
         chat_id=chat.id,
